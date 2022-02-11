@@ -6,6 +6,11 @@ app.get("/", function(req, res) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=Toronto&APPID=${process.env.APPID}&units=metric`
   https.get(url, function(response) {
   console.log(response)
+
+  response.on("data", function(data) {
+    const weatherData = JSON.parse(data)
+    console.log(weatherData)
+  })
   })
 
   res.send('Server is up and running')
