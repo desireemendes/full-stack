@@ -9,11 +9,18 @@ app.get("/", function(req, res) {
 
   response.on("data", function(data) {
     const weatherData = JSON.parse(data)
-    console.log(weatherData)
-  })
-  })
+    const temp = weatherData.main.temp
+    const desc = weatherData.weather[0].description
+    const icon = weatherData.weather[0].icon
+    const imgURL = `http://openweather.org/img/wn${icon}@2x.png`
 
-  res.send('Server is up and running')
+    res.write("<h1>The temperature in Toronto is " + temp + "degrees Celsius</h1>")
+    res.write(`<h3>The weather is currently ${desc}</h3>`)
+    res.write("<img src=" + imgURL +">")
+
+    res.send()
+  })
+  })
 })
 
 app.listen(3000, function () {
